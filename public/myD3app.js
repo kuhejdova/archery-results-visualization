@@ -150,6 +150,15 @@ function init(callback) {
   callback();
 }
 
+function season_switch() {
+  if (localStorage.getItem('indoor') === 'true') {
+    localStorage.setItem('indoor', 'false');
+  } else {
+    localStorage.setItem('indoor', 'true');
+  }
+  location.reload();
+}
+
 
 /*----------------------
 BEGINNING OF VISUALIZATION
@@ -160,7 +169,7 @@ function visualization() {
   var button1 = document.getElementById("b1");
   var button2 = document.getElementById("b2");
 
-  if (box.checked) {
+  if (localStorage.getItem('indoor') === 'true') {
     console.log("Indoor")
     if (localStorage.getItem('checked_year') === 'true'){
       button1.classList.add("active"); 
