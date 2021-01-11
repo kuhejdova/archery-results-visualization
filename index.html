@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Competition resuls</title>
+  <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://d3js.org/d3-selection-multi.v1.min.js"></script>
+  <link href="./public/main.css" rel="stylesheet">
+  <script type="text/javascript" src="public/myD3app.js"></script>
+</head>
+
+<body>
+
+
+  <div id=body>
+    <div class=row>
+      <div id="info_div">
+        <h1>Archery competition results</h1>
+        <h3>Data source: <a href="https://www.rcherz.com/cs/users/viewProfile/52cf7168/eva_kuhejdova">Rcherz Eva
+            Kuhejdová</a></h3>
+        <!-- <img id="question" src="public/question_icon.png" alt="Help" height=20px width=20px> -->
+        <!-- <img id="arrow" src="public/arrow.png" alt="arrow" width=100%> -->
+        <div id=details></div>
+      </div>
+
+      <div id="results">
+        <img id="question_results" src="public/question_icon.png" alt="Help" height=20px width=20px>
+        <p>Results</p>
+        <div id="results_div"></div>
+      </div>
+    </div>
+    <div class=row>
+      <div id="time_div">
+        <p> Outdoor
+          <label class="switch">
+            <input type="checkbox" , id="switch" , onchange="location.reload()">
+            <span class="slider round"></span>
+          </label>
+          Indoor </p>
+        <div id="wrapper">
+            <button id="b1" onclick="localStorage.setItem('checked_year', 'true'); location.reload();">2018/2019</button>
+            <button id="b2" onclick="localStorage.setItem('checked_year', 'false'); location.reload();">2019/2020</button>
+        </div>
+      </div>
+      <div id="hits">
+        <img id="question_hits" src="public/question_icon.png" alt="Help" height=20px width=20px>
+        <p>Hits</p>
+        <div id="pie_div"></div>
+      </div>
+      <div id="ends">
+        <img id="question_ends" src="public/question_icon.png" alt="Help" height=20px width=20px>
+        <p>Ends</p>
+        <div id="ends_div"></div>
+      </div>
+    </div>
+  </div>
+
+</body>
