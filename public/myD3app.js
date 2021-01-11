@@ -113,21 +113,6 @@ d3.csv("./public/EK_outdoor_results.csv")
 INITIALIZE VISUALIZATION
 ----------------------*/
 function init(callback) {
-
-  
-
-  //Retrieve a SVG file via d3.request, 
-  //the xhr.responseXML property is a document instance
-  function responseCallback (xhr) {
-    d3.select("#body").append(function () {
-            return xhr.responseXML.querySelector('svg');
-        }).attr("id", "info_div")
-        .attr("width", d3.select("#body").node().clientWidth)
-        .attr("height", d3.select("#body").node().clientHeight)
-        .attr("x", 0)
-        .attr("y", 0);
-        
-    };
   
   //D3 canvases for svg elements
 
@@ -145,23 +130,6 @@ function init(callback) {
                                     .attr("height",d3.select("#ends_div").node().clientHeight);
 
   callback();
-}
-
-function season_switch() {
-  if (localStorage.getItem('indoor') === 'true') {
-    localStorage.setItem('indoor', 'false');
-  } else {
-    localStorage.setItem('indoor', 'true');
-  }
-  location.reload();
-}
-
-
-function update_graphs(){
-  init(function(){
-    //Data visualization
-    visualization();
-  });
 }
 
 /*----------------------
@@ -213,7 +181,6 @@ function visualization() {
     drawResultsChart(data1);
 
     // Draw pieChart with most frequent hits
-    // drawPieChart(data1);
     drawBarChart(data1);
 
     drawHeatMap(data1);
@@ -239,7 +206,7 @@ function visualization() {
     drawResultsChart(data2);
 
     // Draw pieChart with most frequent hits
-    // drawPieChart(data2);
+  
     drawBarChart(data2);
 
     drawHeatMap(data2);
@@ -252,27 +219,15 @@ function visualization() {
   TEXT INFORMATION
 ----------------------*/
 function drawTextInfo(data){
-  
-  //Draw headline
-  // infoArea.append("text")
-  //        .attrs({dx: 10, dy: "1em", class: "headline"})
-  //        .text("Competition results");
-
-  // //Draw source
-  // infoArea.append("text")
-  //        .attrs({dx: 10, dy: "4em", class: "subline"})
-  //        .text("Data source: Rcherz Eva Kuhejdová")
-  //        .on("click", function() { window.open("https://www.rcherz.com/cs/users/viewProfile/52cf7168/eva_kuhejdova"); });;
-  
 
   if (data[0].season == "Indoor"){
-    document.getElementById("question_results").title="Archery Indoor competition consists of 60 arrows \nshooted on 18m distance. There are 20 ends of 3 arrows. \nWomen world record is 595 points."
-    document.getElementById("question_hits").title="Archery Indoor competition consists of 60 arrows \nshooted on 18m distance. There are 20 ends of 3 arrows. \nWomen world record is 595 points."
-    document.getElementById("question_ends").title="Archery Indoor competition consists of 60 arrows \nshooted on 18m distance. There are 20 ends of 3 arrows. \nWomen world record is 595 points."
+    document.getElementById("question_results").title="Archery indoor competition consists of 60 arrows \nshooted on 18m distance. There are 20 ends of 3 arrows. \nThe woman's world record is 595 points.\n\n You can select one competition for the detail look when \nyou click on the circle. Click again for full statistics."
+    document.getElementById("question_hits").title="There are three targets in the column, each \nfor one arrow per end. The middle is yellow \nand it's value is 10. The smallest value is 6, \neverything outside these color rings is M \n(for missed) and it has zero value."
+    document.getElementById("question_ends").title="The end in indoor archery is the sum of three arrows, \neach one must be in the separate target. After the end \narchers go to target to write their score and shoot again. \nThere are 20 ends in total.\n\nDarker color means higher score."
   } else {
-    document.getElementById("question_results").title="Archery Outdoor competition consists of 72 arrows \nshooted on 70m distance. There are 12 ends of 6 arrows. \nWomen world record is 692 points"
-    document.getElementById("question_hits").title="Archery Indoor competition consists of 60 arrows \nshooted on 18m distance. There are 20 ends of 3 arrows. \nWomen world record is 595 points."
-    document.getElementById("question_ends").title="Archery Indoor competition consists of 60 arrows \nshooted on 18m distance. There are 20 ends of 3 arrows. \nWomen world record is 595 points."
+    document.getElementById("question_results").title="Archery outdoor competition consists of 72 arrows \nshooted on 70m distance. There are 12 ends of 6 arrows. \nThe woman's world record is 692 points\n\n You can select one competition for the detail look when \nyou click on the circle. Click again for full statistics."
+    document.getElementById("question_hits").title="There is one target per all six arrows. The middle is yellow \nand it's value is 10. In the middle of this ring there \nis one smaller X ring, which is also for 10 points, \nbut if there is a tie, the archer with more X is the winner. \nThe smallest value is 1, everything outside these rings is M \n(for missed) and it has zero value."
+    document.getElementById("question_ends").title="The end in outdoor archery is the sum of six arrows \nAfter the end archers go to the target to write their \nscore and shoot again. There are 12 ends in total.\n\nDarker color means higher score."
   }
   
 
@@ -477,11 +432,6 @@ function drawBarChartLine(data, type_data){
     colorPalette = outdoorPalette;
   }
 
-  // pieArea
-  //   .append("text")
-  //   .attrs({dx: 100, dy: "2em", class: "blockText"})     
-  //   .text("Results");
-
   if(data.season == "Indoor") maximumScore = 600;
 
   let thisCanvasWidth = area.node().clientWidth;
@@ -520,18 +470,10 @@ function drawBarChartLine(data, type_data){
       dataset = hitsArray;
       
     }
-  
-    
-// var range_x = [];
-// for (var i = 0; i < dataset.length; i++){
-//   range_x.add(dataset.key[0] + 1)
-// }
-    
 
 
 // X axis
 if (type_data == "hits"){
-    // console.log("this is dataset " + dataset);
     var x = d3.scaleBand()
       .range([ 0, width ])
       .domain(keysArray)
@@ -540,7 +482,7 @@ if (type_data == "hits"){
       .attr("transform", "translate(40," + (height + 10) + ")")
       .call(d3.axisBottom(x))
 }else{
-  // console.log("this is dataset " + dataset);
+
     var x = d3.scaleBand()
       .range([ 0, width ])
       .domain(Object.keys(dataset))
@@ -554,7 +496,6 @@ if (type_data == "hits"){
 
 // Add Y axis
   if (type_data == "hits"){
-
         var y = d3.scaleLinear()
           .domain([0, d3.max(Object.values(dataset))])
           .range([ height, 0]);
@@ -614,11 +555,6 @@ function drawBarChart(data){
     colorPalette = targetOutdoorPalette;
   }
 
-  // pieArea
-  //   .append("text")
-  //   .attrs({dx: 100, dy: "2em", class: "blockText"})     
-  //   .text("Results");
-
   if(data[0].season == "Indoor") maximumScore = 600;
 
   let thisCanvasWidth = hitsArea.node().clientWidth;
@@ -644,37 +580,11 @@ function drawBarChart(data){
       }
       
     } 
-    console.log("A" + hitsArray);
-
 
     const countOccurrences = arr => arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {});
     var dataset = countOccurrences(hitsArray);
     delete dataset["0"]
-    
-
-    
-    // var dataset = [0,0,0,0,0,0,0,0,0,0,0,0]
-    // for(const [key, val] of Object.entries(datasetUnordered)){
-    //   dataset[keysArray.indexOf(key)] = val;
-    // }
-    
-
-    // for(var i = )
-    
-    //   for(const [key, val] of Object.entries(datasetUnordered)){
-    //     dataset[[Symbol(key)]] = val
-    // }
-    // // datasetUnordered = Object.assign(dataset, datasetUnordered);
-    // for(const [key, val] of Object.entries(dataset)){
-    //   if (val === null) {
-    //     delete dataset[[Symbol(key)]];
-    //   }
-  // }
-  // dataset.sort(function(a, b) {
-  //   return d3.ascending(keysArray.indexOf(a.key), keysArray.indexOf(b.key))
-  // });
-  //   console.log(dataset);
-    
+  
 
 var x = d3.scaleBand()
   .range([ 0, width ])
@@ -706,189 +616,6 @@ hitsArea.selectAll("mybars")
     .attr("transform", "translate(40, 10)")
 }
 
-
-
-
-// /*----------------------
-//   PIE CHART
-// ----------------------*/
-// function drawPieChart(data){
-
-//   var colorPalette;
-//   if (data[0].season == "Indoor"){
-//     colorPalette = indoorPalette;
-//   } else {
-//     colorPalette = outdoorPalette;
-//   }
-//   pieArea
-//     .append("text")
-//     .attrs({dx: 10, dy: "2em", class: "blockText"})     
-//     .text("Hits frequency");
-
-//   var thiswidth = pieArea.node().clientWidth;
-//   var thisheight = pieArea.node().clientHeight;
-
-//   // var width = 450
-//   //   height = 450
-//   var margin = 20
-
-//   // The radius of the pieplot is half the width or half the height (smallest one). I subtract a bit of margin.
-//   var radius = Math.min(thiswidth, thisheight) / 2 - margin
-
-//   // append the svg object to the div called 'my_dataviz'
-//   pieArea
-//     .append("svg")
-//       .attr("width", thiswidth)
-//       .attr("height", thisheight)
-//     .append("g")
-//       .attr("transform", "translate(" + thiswidth / 2 + "," + thisheight / 2 + ")");
-
-//   pieArea.append("g")
-//     .attr("class", "labels");
-//   pieArea.append("g")
-//     .attr("class", "lines");
-
-//   // create data - hits frequency
-//   var i;
-//   var hitsArray = [];
-//   for (i = 0; i < data.length; i++) {
-//     if (data[i].date > showingSeason[0] && data[i].date < showingSeason[1]){
-//       hitsArray = hitsArray.concat(data[i].allHits);
-//     }
-    
-//   } 
-  
-//   const countOccurrences = arr => arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {});
-//   var dataset = countOccurrences(hitsArray);
-//   delete dataset["0"]
-//   // console.log(dataset);
-
-//   // set the color scale
-//   var color = d3.scaleOrdinal()
-//     .domain(dataset)
-//     .range(colorPalette)
-
-//   // Compute the position of each group on the pie:
-//   var pie = d3.pie()
-//     .sort(dataset.key)
-//     .value(function(d) {return d.value; })
-//   var data_ready = pie(d3.entries(dataset))
-
-
-//   var arc = d3.arc()
-// 	.outerRadius(radius * 0.8)
-// 	.innerRadius(radius * 0.4);
-
-//   var outerArc = d3.arc()
-// 	.innerRadius(radius * 0.9)
-// 	.outerRadius(radius * 0.9);
-
-//   function labelData (){
-//     var labels = color.domain();
-//     return labels.map(function(label){
-//       return { label: label, value: dataset.key }
-//     });
-//   }
-
-//   // shape helper to build arcs:
-//   var arcGenerator = d3.arc()
-//     .innerRadius(0)
-//     .outerRadius(radius)
-//   // Build the pie chart: Basically, each part of the pie is a path that we build using the arc function.
-//   pieArea
-//     .selectAll('mySlices')
-//     .data(data_ready)
-//     .enter()
-//     .append('path')
-//     .attr('d', arcGenerator)
-//     .attr('fill', function(d){ return(color(d.data.key)) })
-//     .attr("stroke", "black")
-//     .style("stroke-width", "2px")
-//     .style("opacity", 0.7)
-//     .attr("transform", "translate(" + thiswidth / 2 + "," + thisheight / 2 + ")");
-
-
-//     // Now add the annotation. Use the centroid method to get the best coordinates
-//   pieArea
-//   .selectAll('mySlices')
-//   .data(data_ready)
-//   .enter()
-//   .append('text')
-//   .text(function(d){ return d.data.key})
-//   .attr("transform", function(d) { 
-//     var coords = arcGenerator.centroid(d)
-//     // console.log(coords)
-//     return "translate(" + (coords[0] + thiswidth / 2) + ", " + (coords[1] + thisheight / 2) + ")";  })
-//   .style("text-anchor", "middle")
-//   .style("font-size", "15px")
-
-
-//   /* ------- TEXT LABELS -------*/
-
-// 	var text = pieArea.select(".labels").selectAll("text")
-//   .data(pie(data), dataset.key);
-
-//   text.enter()
-//     .append("text")
-//     .attr("dy", ".35em")
-//     .text(function(d) {
-//       return d.data.key;
-//     });
-
-//   function midAngle(d){
-//     return d.startAngle + (d.endAngle - d.startAngle)/2;
-//   }
-
-//   text.transition().duration(1000)
-// 		.attrTween("transform", function(d) {
-// 			this._current = this._current || d;
-// 			var interpolate = d3.interpolate(this._current, d);
-// 			this._current = interpolate(0);
-// 			return function(t) {
-// 				var d2 = interpolate(t);
-// 				var pos = outerArc.centroid(d2);
-// 				pos[0] = radius * (midAngle(d2) < Math.PI ? 1 : -1);
-// 				return "translate("+ pos +")";
-// 			};
-// 		})
-// 		.styleTween("text-anchor", function(d){
-// 			this._current = this._current || d;
-// 			var interpolate = d3.interpolate(this._current, d);
-// 			this._current = interpolate(0);
-// 			return function(t) {
-// 				var d2 = interpolate(t);
-// 				return midAngle(d2) < Math.PI ? "start":"end";
-// 			};
-// 		});
-
-//   text.exit()
-//     .remove();
-
-//   /* ------- SLICE TO TEXT POLYLINES -------*/
-
-//   var polyline = pieArea.select(".lines").selectAll("polyline")
-//     .data(pie(data), dataset.key);
-
-//   polyline.enter()
-//     .append("polyline");
-
-//   polyline.transition().duration(1000)
-// 		.attrTween("points", function(d){
-// 			this._current = this._current || d;
-// 			var interpolate = d3.interpolate(this._current, d);
-// 			this._current = interpolate(0);
-// 			return function(t) {
-// 				var d2 = interpolate(t);
-// 				var pos = outerArc.centroid(d2);
-// 				pos[0] = radius * 0.95 * (midAngle(d2) < Math.PI ? 1 : -1);
-// 				return [arc.centroid(d2), outerArc.centroid(d2), pos];
-// 			};			
-// 		});
-
-//   polyline.exit()
-//     .remove();
-    
-// }
 
 
 /*----------------------
@@ -1030,172 +757,3 @@ function drawHeatMap(data){
         .on("mouseleave", mouseleave)
 
 }
-
-
-
-// /*----------------------
-//   HEAT MAP
-// ----------------------*/
-// function drawHeatMap(){
-
-//   //Once again, get dimenstions of canvas
-//   let thisCanvasWidth = heatMapArea.node().clientWidth;
-//   let thisCanvasHeight = heatMapArea.node().clientHeight;
-  
-//   //Caluculate the dimensions of all 654*6 bars
-//   let thisRectWidth = thisCanvasWidth/data.length;
-//   let thisRectHeigth = thisCanvasHeight/6;
-
-//   for (var i = 0; i < data.length; i++) {
-//     let indexY = 0;
-//     for(var key in data[i]){
-//       // console.log(key)
-//       if(key != 'date') {
-//         let region = key;
-//         let index = i;
-//         let currentValue = data[i][key];
-//         let thisColor = d3.rgb(255 * (currentValue / topValue),0,0);
-//         if(currentValue == 0) thisColor = d3.color("#3e4147")
-//         heatMapArea.append('rect')
-//          .attrs({ 
-//             x: i * thisRectWidth, 
-//             y: indexY * thisRectHeigth, 
-//             width: thisRectWidth + 1, 
-//             height: thisRectHeigth, 
-//             fill: thisColor })
-//          .on("click", function(){
-//                   heatMapClick(thisColor, index, region, thisRectWidth, thisCanvasHeight);
-//                 });
-//         indexY++;
-//       }
-//     }
-
-//     //Once again the labels, using foreach cycle with callback function
-//     let index = thisRectHeigth;
-//     data.columns.forEach(function(col){
-//       if(col != "Date"){
-//         // console.log(col)
-//             heatMapArea.append("text")
-//              .attrs({ dx: 0,
-//                       dy: index,
-//                       class: "label",
-//                       fill: "white"})
-//              .text(col);
-
-//              index += thisRectHeigth;
-//       }
-//     }) 
-
-//   }
-
-//   //Data selected rectangle
-//   selectedDate = heatMapArea.append('rect');
-
-// }
-
-// function updateBarChart(region){
-
-//     //Get the dimensions of the canvas
-//     let thisCanvasWidth = barChartArea.node().clientWidth;
-//     let thisCanvasHeight = barChartArea.node().clientHeight;
-    
-//     //Get the width of one bar in the bar chart
-//     let thisRectWidth = thisCanvasWidth/data.length;
-
-//     //Get the region anotations
-//     //If we don't have records for this region (it starts with ARG), we use whole Argentina records
-//     let thisRegion = (region.substring(0, 3) === "ARG") ? "Argentina" : region;
-
-//     //Remove whole canvas and create it once again
-//     barChartArea.remove()
-//     barChartArea = d3.select("#barchart_div").append("svg")
-//                                     .attr("width",d3.select("#barchart_div").node().clientWidth)
-//                                     .attr("height",d3.select("#barchart_div").node().clientHeight);
-
-//     //Iterate through whole dataset                               
-//     for (var i = 0; i < data.length; i++) {
-//       //Calculate the height of previously and currently selected region
-//       //During the startup, previous region is null, so values rise from zero
-//       let lastHeight = (lastSelectedRegion == null) ? 0 : (data[i][lastSelectedRegion]/topValue) * thisCanvasHeight;
-//       let thisHeight = (data[i][thisRegion]/topValue) * thisCanvasHeight;
-//       barChartArea.append('rect')
-//        .attrs({ 
-//           x: i * thisRectWidth, 
-//           y: thisCanvasHeight - lastHeight, 
-//           width: thisRectWidth + 1, 
-//           height: lastHeight, 
-//           fill: 'red' })    
-//       .transition() //Animation function
-//       .duration(1000) //Duration in ms
-//       .attrs({ y: thisCanvasHeight - thisHeight, //Adjust only necessary attributes
-//               height: thisHeight});              //which is y position and height of the bar
-//     }  
-    
-//     //Init the current year string variable
-//     var currentYear = "";
-
-//     //And consequently iterate through the dataset and check change in years
-//     for (var i = 0; i < data.length; i++) {
-//         if(data[i].date.substr(0, 4) != currentYear){
-
-//             //Once year changes, append a text on top of bar charts
-//             currentYear = data[i].date.substr(0, 4)
-//             barChartArea.append("text")
-//              .attrs({ dx: i*thisRectWidth,
-//                       dy: thisCanvasHeight,
-//                       class: "label"})
-//              .text(currentYear);
-//       }
-//     }
-
-//     //Don't forget to swap regions
-//     lastSelectedRegion = thisRegion;
-// }
-
-// /*----------------------
-//   INTERACTION
-// ----------------------*/
-// function mapClick(region){
-    
-//     //Debugging purposes
-//     console.log(region.id)
-//     selectedRegion = region.id;
-
-//     // You can change a D3 object by deleting it and creating it once again
-//     // selectedAreaText.remove();
-//     // selectedAreaText = textArea.append("text")
-//     //      .attrs({dx: 20, dy: "4.8em", class: "subline"})
-//     //      .text("Selected Region: " + selectedRegion.replace("_", " "));
-
-//     //Or you can just update it's characteristics
-//     //And prepare the string so it looks lovely
-//     if(selectedRegion.substr(0, 3) == 'ARG') selectedRegion = "Whole Argentina"
-//     selectedAreaText.text("Selected Region: " + selectedRegion.replace("_", " "));
-
-//     //Call update bar chart function
-//     updateBarChart(region.id);
-
-// }
-
-// /*----------------------
-//   ADVANCED INTERACTION
-// ----------------------*/
-// function heatMapClick(color, index, region, thisBarWidth, thisCanvasHeight){
-  
-//   //For all regions in our dataset, change color to newly computed
-//   for(var key in data[index]) {
-//       if (key != "date") {
-//         let thisColor = d3.color("rgb(" + Math.round(data[index][key]/topValue * 255) + ", 0, 0)")
-//         d3.select("body").select("#" + key).style("fill", thisColor);
-//       }
-//   }
-
-//   //Redraw Date selection bar
-//   selectedDate.attrs({ x: thisBarWidth*index - thisBarWidth, 
-//                     y: 0, 
-//                     width: thisBarWidth*3, 
-//                     height: thisCanvasHeight, 
-//                     fill: "white" })
-//            .style("opacity", 0.25); 
-// }
-

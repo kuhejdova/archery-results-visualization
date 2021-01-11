@@ -1,6 +1,5 @@
 body{
 	background:#4b4a4a;
-	/*margin-top:50px;*/
 	font: 15px "Helvetica";
   color:#ffffff;
   stroke: #ffffff;
@@ -17,11 +16,6 @@ body{
    padding-left: 10px;
  }
 
-.anchorNode {
-  font-family: "Helvetica";
-  font-size: 2px;
-}
-
 p{
   margin-left: 10px;
   margin-bottom: 5px;
@@ -29,15 +23,9 @@ p{
   font: 20px "Helvetica";
 }
 
-label{
-  margin-left: 10px;
-  font: 15px "Helvetica";
-}
-
 a:link {
   color: r#6b6b6b;
 }
-
 
 a:visited {
   color: #969696;
@@ -47,41 +35,17 @@ a:active {
   color: #6b6b6b;
 }
 
-
 .row {
   display: grid;
   grid-row-gap: 15px;
-  /* padding: 10px; */
 } 
-
-
-/* Create two equal columns that sits next to each other */
-.column {
-  flex: 50%;
-  padding: 5px;
-  flex: 1;
-  min-width:0;
-  /* height: 300px; Should be removed. Only for demonstration */
-}
 
 #info_div{
   background: #222222;
   color:#ffffff;
   text-align: center;
     width:100%;
-    /* height:32vh; */
-    /* border:1px solid red; */
-    /* padding-left:10px; */
     float:left;
-    /* grid-column: 1 / 2; */
-    /* grid-row: span 2; */
-}
-
-#target{
- position: absolute;
- top: 0;
- right: 0;
- height: 100%;
 }
 
 #question_results, #question_hits, #question_ends{
@@ -93,21 +57,15 @@ a:active {
 #results{
   background: #222222;
   color:#ffffff;
-  /* padding-top: 10px; */
     width:100%;
     height:65vh;
-    /* border:1px solid red; */
     font-size: calc(3vw + 3vh);
     float:left;
-    /* grid-column: 1 / 2;
-    grid-row: 3 / 6; */
 }
 
 #results_div{
-  /* padding-top: 10px; */
     width:100%;
     height:50vh;
-    /* border:1px solid red; */
     font-size: calc(3vw + 3vh);
     float:left;
 }
@@ -117,20 +75,13 @@ a:active {
   color:#ffffff;
   width:100%;
   height:35vh;
-  /* border:1px solid red; */
   font-size: calc(3vw + 3vh);
   float:left;
-  /* grid-column: 2 / 3; */
-}
-
-#hits {
-  /* grid-row: 2 / 4; */
 }
 
 #pie_div, #ends_div{
   width:100%;
   height:28vh;
-  /* border:1px solid red; */
   font-size: calc(3vw + 3vh);
   float:left;
 }
@@ -141,11 +92,8 @@ a:active {
   text-align: center;
   width:100%;
   height:20vh;
-  /* border:1px solid red; */
   font-size: calc(3vw + 3vh);
   float:left;
-  /* grid-column: 2 / 3;
-  grid-row: 1 / 2; */
 }
 
 #wrapper {
@@ -161,26 +109,12 @@ label {
   cursor: pointer;
 }
 
-
-
-#radio_style{
-  margin-left: 10px;
-  width: 20%; 
-  padding-top: 10px;
-  padding-bottom: 15px;
-  padding-left: 0px;
-  padding-right: 35px;
-  font: 15px "Helvetica";
-  background: #e2e2e2;
-}
-
 input:checked + label {
    background: rgb(192, 192, 192);
 }
 
 .heatText{
   font: 16px "Helvetica";
-  /* display: block; */
   font-size: 0.8vw;
   margin-top: 0.67em;
   margin-bottom: 0.67em;
@@ -188,7 +122,6 @@ input:checked + label {
   margin-right: 0;
   fill: rgb(255, 255, 255);
   stroke: none;
-  /* font-family: 'PT Sans',sans-serif; */
 }
 
 .headline, .subline, .blockText{
@@ -199,11 +132,9 @@ input:checked + label {
   margin-right: 0;
   fill: rgb(0, 0, 0);
   font-family: 'Helvetica',sans-serif;
-  /* opacity: 0.5; */
 }
 
 .headline{
-  /* font-size: 4em; */
   font-size: 250%;
   
   font-weight: bold;
@@ -212,13 +143,6 @@ input:checked + label {
 .subline{
   font-size: 50%;
   font-weight: thin;
-  /* font-size: 1vw; */
-}
-
-.blockText{
-  /* font-size: 50%; */
-  font-weight: thin;
-  font-size: 1vw;
 }
 
 .label{
@@ -226,19 +150,6 @@ input:checked + label {
   opacity: 1;
   font-size: 30%;
 }
-
-
-path.slice{
-	stroke-width:2px;
-}
-
-polyline{
-	opacity: .3;
-	stroke: black;
-	stroke-width: 2px;
-	fill: none;
-}
-
 
 .tooltip {
   position: absolute;
@@ -262,8 +173,6 @@ polyline{
   word-wrap: break-word;
   opacity: 0;
 }
-
-
 
  /* The switch - the box around the slider */
  .switch {
