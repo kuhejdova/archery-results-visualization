@@ -34,13 +34,13 @@
       <div id="time_div">
         <p> Outdoor
           <label class="switch">
-            <input type="checkbox" , id="switch" , onchange="season_switch()">
+            <input type="checkbox" , id="switch" , onchange="visualization()">
             <span class="slider round"></span>
           </label>
           Indoor </p>
         <div id="wrapper">
-            <button id="b1" onclick="localStorage.setItem('checked_year', 'true'); location.reload();">2018/2019</button>
-            <button id="b2" onclick="localStorage.setItem('checked_year', 'false'); location.reload();">2019/2020</button>
+            <button id="b1" onclick="localStorage.setItem('checked_year', 'true'); visualization();">2018/2019</button>
+            <button id="b2" onclick="localStorage.setItem('checked_year', 'false'); visualization();">2019/2020</button>
         </div>
       </div>
       <div id="hits">

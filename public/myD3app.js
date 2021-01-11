@@ -116,9 +116,6 @@ function init(callback) {
 
   
 
-  let width = screen.width;
-  let height = screen.height;
-
   //Retrieve a SVG file via d3.request, 
   //the xhr.responseXML property is a document instance
   function responseCallback (xhr) {
@@ -160,22 +157,50 @@ function season_switch() {
 }
 
 
+function update_graphs(){
+  init(function(){
+    //Data visualization
+    visualization();
+  });
+}
+
 /*----------------------
 BEGINNING OF VISUALIZATION
 ----------------------*/
 function visualization() {
 
+
+  resultsArea.remove()
+  hitsArea.remove()
+  endsArea.remove()
+
+
+  resultsArea = d3.select("#results_div").append("svg")
+                                    .attr("color", "#ffffff")
+                                    .attr("width",d3.select("#results_div").node().clientWidth)
+                                    .attr("height",d3.select("#results_div").node().clientHeight);
+
+  hitsArea = d3.select("#pie_div").append("svg")
+                                    .attr("width",d3.select("#pie_div").node().clientWidth)
+                                    .attr("height",d3.select("#pie_div").node().clientHeight);
+
+  endsArea = d3.select("#ends_div").append("svg")
+                                    .attr("width",d3.select("#ends_div").node().clientWidth)
+                                    .attr("height",d3.select("#ends_div").node().clientHeight);
+
   var box = document.getElementById("switch");
   var button1 = document.getElementById("b1");
   var button2 = document.getElementById("b2");
 
-  if (localStorage.getItem('indoor') === 'true') {
+  if (box.checked) {
     document.getElementById('switch').checked = true;
     if (localStorage.getItem('checked_year') === 'true'){
+      button2.classList.remove("active");
       button1.classList.add("active"); 
       showingSeason = [winterSeason1Beg, summerSeason1Beg];
       actualSeason = "Indoor 2018/2019";
     } else {
+      button1.classList.remove("active");
       button2.classList.add("active");
       showingSeason = [winterSeason2Beg, summerSeason2Beg];
       actualSeason = "Indoor 2019/2020";
@@ -195,10 +220,12 @@ function visualization() {
   } else {
     console.log("Outdoor")
     if (localStorage.getItem('checked_year') === 'true'){
+      button2.classList.remove("active");
       button1.classList.add("active");
       showingSeason = [summerSeason1Beg, winterSeason2Beg];
       actualSeason = "Outdoor 2018/2019";
     } else {
+      button1.classList.remove("active");
       button2.classList.add("active");
       showingSeason = [summerSeason2Beg, winterSeason3Beg];
       actualSeason = "Outdoor 2019/2020";
