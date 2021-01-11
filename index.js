@@ -1,6 +1,6 @@
 const express = require('express')
 const app = express()
-const port = 80
+const port = process.env.PORT
 
 app.use(express.static('public')) // zpristupni klientovi pomoci public slozky, neni to bezpecne
 app.use('/public', express.static(__dirname + '/public'));
