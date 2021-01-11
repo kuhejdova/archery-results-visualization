@@ -60,13 +60,7 @@ d3.csv("./public/EK_indoor_results.csv")
       //Saving reference to data
       data1 = rows;
 
-      ///Load map and initialise the views
-      // init(function(){
-      //   //Data visualization
-      //   visualization();
-      // });
       maximumScore = 600;
-      console.log(rows);
       return('Success');
   });
 
@@ -102,8 +96,6 @@ d3.csv("./public/EK_outdoor_results.csv")
       //Data visualization
       visualization();
     });
-    console.log(rows);
-    // return('Success');
   });
   
   
@@ -185,7 +177,7 @@ function visualization() {
 
     drawHeatMap(data1);
   } else {
-    console.log("Outdoor")
+
     if (localStorage.getItem('checked_year') === 'true'){
       button2.classList.remove("active");
       button1.classList.add("active");
@@ -379,7 +371,6 @@ resultsArea
                   searchedLine = seasonData[k];
               }
             }
-            console.log("searched line " + searchedLine);
             drawBarChartLine(searchedLine, "hits");
 
             endsArea.remove();
@@ -467,10 +458,23 @@ function drawBarChartLine(data, type_data){
       }
     } else {
       hitsArray = data.allSets;
-      dataset = hitsArray;
-      
+      dataset = hitsArray;      
     }
 
+var topValue;
+var colorEnds;
+  if (data.season == "Indoor"){
+    topValue = 30;
+    colorEnds = ['#ffffff', '#0000ff', '#000000']
+    // colorEnds = ['#000000', '#0000ff', '#ffffff']
+  } else {
+    topValue = 60;
+    colorEnds = ['#ffffff', '#ff0000', '#000000']
+    // colorEnds = ['#000000', '#ff0000', '#ffffff']
+  }
+var myColor = d3.scaleLinear()
+    .range(colorEnds)
+    .domain([0, topValue/2, topValue])
 
 // X axis
 if (type_data == "hits"){
@@ -514,29 +518,29 @@ if (type_data == "hits"){
 
 // Bars
 if (type_data == "hits"){
-hitsArea.selectAll("mybars")
-  .data(keysArray)
-  .enter()
-  .append("rect")
-   .attr("x", function(d) { return x(d); })
-    .attr("y", function(d) { return y(dataset[d]); })
-    .attr("width", x.bandwidth())
-    .attr("height", function(d) { return height - y(dataset[d]); })
-    .attr("fill", function(d) { return colorPalette[d]; })
-    .attr("stroke", function(d) { return colorPalette[d]; }) 
-    .attr("transform", "translate(40, 10)")
+    hitsArea.selectAll("mybars")
+      .data(keysArray)
+      .enter()
+      .append("rect")
+      .attr("x", function(d) { return x(d); })
+        .attr("y", function(d) { return y(dataset[d]); })
+        .attr("width", x.bandwidth())
+        .attr("height", function(d) { return height - y(dataset[d]); })
+        .attr("fill", function(d) { return colorPalette[d]; })
+        .attr("stroke", function(d) { return colorPalette[d]; }) 
+        .attr("transform", "translate(40, 10)")
   } else {
-area.selectAll("mybars")
-  .data(d3.keys(dataset))
-  .enter()
-  .append("rect")
-    .attr("x", function(d) { return x(d); })
-    .attr("y", function(d) { return y(dataset[d]); })
-    .attr("width", x.bandwidth())
-    .attr("height", function(d) { return height - y(dataset[d]); })
-    .attr("fill", colorPalette[3])
-    .attr("stroke", colorPalette[3]) 
-    .attr("transform", "translate(40, 10)")
+    area.selectAll("mybars")
+      .data(d3.keys(dataset))
+      .enter()
+      .append("rect")
+        .attr("x", function(d) { return x(d); })
+        .attr("y", function(d) { return y(dataset[d]); })
+        .attr("width", x.bandwidth())
+        .attr("height", function(d) { return height - y(dataset[d]); })
+        .attr("fill", function(d) { return myColor(dataset[d]); })
+        .attr("stroke", function(d) { return myColor(dataset[d]); }) 
+        .attr("transform", "translate(40, 10)")
   }
 }
 
@@ -652,8 +656,6 @@ function drawHeatMap(data){
       seasonData.push(data[i]);
     }  
   } 
-  console.log("dates array", datesArray);
-  console.log("season data", seasonData);
 
   var colorPalette;
   if (data[0].season == "Indoor"){
