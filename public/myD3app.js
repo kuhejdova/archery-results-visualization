@@ -170,7 +170,7 @@ function visualization() {
   var button2 = document.getElementById("b2");
 
   if (localStorage.getItem('indoor') === 'true') {
-    console.log("Indoor")
+    document.getElementById('switch').checked = true;
     if (localStorage.getItem('checked_year') === 'true'){
       button1.classList.add("active"); 
       showingSeason = [winterSeason1Beg, summerSeason1Beg];
