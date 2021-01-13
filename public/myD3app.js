@@ -239,11 +239,11 @@ function visualization() {
 function drawTextInfo(data){
 
   if (data[0].season == "Indoor"){
-    document.getElementById("question_results").title="Archery indoor competition consists of 60 arrows \nshooted on 18m distance. There are 20 ends of 3 arrows. \nThe woman's world record is 595 points.\n\n You can select one competition for the detail look when \nyou click on the circle. Click again for full statistics."
+    document.getElementById("question_results").title="Archery indoor competition consists of 60 arrows \nshooted on 18m distance. There are 20 ends of 3 arrows. \nThe woman's world record is 595 points. \n\nYou can select one competition for the detail look when \nyou click on the circle. Click again for full statistics."
     document.getElementById("question_hits").title="There are three targets in the column, each \nfor one arrow per end. The middle is yellow \nand it's value is 10. The smallest value is 6, \neverything outside these color rings is M \n(for missed) and it has zero value."
     document.getElementById("question_ends").title="The end in indoor archery is the sum of three arrows, \neach one must be in the separate target. After the end \narchers go to target to write their score and shoot again. \nThere are 20 ends in total.\n\nDarker color means higher score."
   } else {
-    document.getElementById("question_results").title="Archery outdoor competition consists of 72 arrows \nshooted on 70m distance. There are 12 ends of 6 arrows. \nThe woman's world record is 692 points\n\n You can select one competition for the detail look when \nyou click on the circle. Click again for full statistics."
+    document.getElementById("question_results").title="Archery outdoor competition consists of 72 arrows \nshooted on 70m distance. There are 12 ends of 6 arrows. \nThe woman's world record is 692 points \n\nYou can select one competition for the detail look when \nyou click on the circle. Click again for full statistics."
     document.getElementById("question_hits").title="There is one target per all six arrows. The middle is yellow \nand it's value is 10. In the middle of this ring there \nis one smaller X ring, which is also for 10 points, \nbut if there is a tie, the archer with more X is the winner. \nThe smallest value is 1, everything outside these rings is M \n(for missed) and it has zero value."
     document.getElementById("question_ends").title="The end in outdoor archery is the sum of six arrows \nAfter the end archers go to the target to write their \nscore and shoot again. There are 12 ends in total.\n\nDarker color means higher score."
   }
