@@ -10,6 +10,9 @@ var resultsArea;
 var hitsArea;
 var endsArea;
 
+var Tooltip;
+var tooltip;
+
 // maximum competition score
 var maximumScore = 720;
 
@@ -121,6 +124,29 @@ function init(callback) {
                                     .attr("width",d3.select("#ends_div").node().clientWidth)
                                     .attr("height",d3.select("#ends_div").node().clientHeight);
 
+
+  tooltip = d3.select("#ends_div")
+                                    .append("div")
+                                    .style("opacity", 0)
+                                    .attr("class", "tooltip")
+                                    .style("background-color", "white")
+                                    .style("color", "black")
+                                    .style("border", "solid")
+                                    .style("border-width", "2px")
+                                    .style("border-radius", "5px")
+                                    .style("padding", "5px")
+
+
+Tooltip = d3.select("#results_div")
+                                    .append("div")
+                                    .style("opacity", 0)
+                                    .attr("class", "tooltip")
+                                    .style("background-color", "white")
+                                    .style("color", "black")
+                                    .style("border", "solid")
+                                    .style("border-width", "2px")
+                                    .style("border-radius", "5px")
+                                    .style("padding", "5px")
   callback();
 }
 
@@ -305,17 +331,7 @@ resultsArea
         )
       .attr("transform", "translate(40, 10)")
 
-
-  var Tooltip = d3.select("#results_div")
-      .append("div")
-      .style("opacity", 0)
-      .attr("class", "tooltip")
-      .style("background-color", "white")
-      .style("color", "black")
-      .style("border", "solid")
-      .style("border-width", "2px")
-      .style("border-radius", "5px")
-      .style("padding", "5px")
+  
 
       // Three function that change the tooltip when user hover / move / leave a cell
       var mouseover = function(d) {
@@ -668,16 +684,7 @@ function drawHeatMap(data){
     // colorPalette = ['#000000', '#ff0000', '#ffffff']
   }
 
-  var tooltip = d3.select("#ends_div")
-    .append("div")
-    .style("opacity", 0)
-    .attr("class", "tooltip")
-    .style("background-color", "white")
-    .style("color", "black")
-    .style("border", "solid")
-    .style("border-width", "2px")
-    .style("border-radius", "5px")
-    .style("padding", "5px")
+  
 
   // Three function that change the tooltip when user hover / move / leave a cell
   var mouseover = function(d) {
