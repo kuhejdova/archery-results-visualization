@@ -321,6 +321,7 @@ resultsArea
       var mouseover = function(d) {
         Tooltip
           .style("opacity", 1)
+        d3.select(this).style("cursor", "pointer");
       }
       var mousemove = function(d) {
         Tooltip
@@ -331,6 +332,7 @@ resultsArea
       var mouseleave = function(d) {
         Tooltip
           .style("opacity", 0)
+        d3.select(this).style("cursor", "default");
       }
 
 

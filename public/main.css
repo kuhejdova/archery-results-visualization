@@ -18,9 +18,16 @@ body{
 
 p{
   margin-left: 10px;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   margin-top: 10px;
   font: 20px "Helvetica";
+}
+
+#subtitle{
+  margin-left: 10px;
+  margin-bottom: 5px;
+  margin-top: 0px;
+  font: 12px "Helvetica";
 }
 
 a:link {
